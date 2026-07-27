@@ -27,25 +27,28 @@ st.markdown("""
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;   /* full screen height */
+    min-height: 100vh;
 }
 
 /* Main content glass box */
 .main .block-container{
-    background: rgba(255,255,255,0.12);   /* adjust opacity */
+    background: rgba(255,255,255,0.12);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
-    border: 2px solid rgba(255,255,255,0.45); /* subtle glowing border */
+    border: 2px solid rgba(255,255,255,0.45);
     border-radius: 25px;
 
     padding: 45px;
-    width: 80%;            /* wide transparent layer */
-    max-width: 900px;      /* optional limit */
-    margin: auto;
+    width: 80%;
+    max-width: 900px;
 
     box-shadow: 0px 0px 30px rgba(255,255,255,0.45);
-    text-align: center;    /* center text inside */
+    text-align: center;
+
+    /* 👇 Adjust vertical position */
+    margin-top: -100px;   /* move box upward */
+    /* Try positive value (e.g., 100px) to move downward */
 }
 
 /* Title */
@@ -62,8 +65,8 @@ label, p, span, div{
 
 /* Text input */
 .stTextInput input{
-    background:rgba(255,255,255,0.7)!important;  /* semi-transparent white */
-    color:black!important;                       /* user input stays black */
+    background:rgba(255,255,255,0.7)!important;
+    color:black!important;
     border:1px solid rgba(255,255,255,0.8)!important;
     border-radius:12px!important;
     padding:10px;
