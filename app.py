@@ -2,7 +2,7 @@
 import streamlit as st
 from transformers import pipeline
 
-# Load sentiment analysis model
+# Load Hugging Face sentiment analysis model
 sentiment_pipeline = pipeline("sentiment-analysis")
 
 # Background + styling
@@ -42,7 +42,7 @@ page_bg_img = """
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Actual app content only
+# Analyzer title only
 st.markdown('<div class="big-box"><div class="sentiment-box">📝 Text Sentiment Analyzer</div></div>', unsafe_allow_html=True)
 
 # User input + analysis
