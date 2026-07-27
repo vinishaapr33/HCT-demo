@@ -1,105 +1,185 @@
 import streamlit as st
 from transformers import pipeline
 
-# -------------------- Page Config --------------------
-st.set_page_config(page_title="Sentiment Analyzer", layout="centered")
+# ---------------- Page Config ----------------
 
-# -------------------- Load Model --------------------
+st.set_page_config(
+    page_title="Sentiment Analyzer",
+    page_icon="✨",
+    layout="centered"
+)
+
+# ---------------- Load Model ----------------
+
 @st.cache_resource
 def load_model():
     return pipeline("sentiment-analysis")
 
 sentiment_pipeline = load_model()
 
-# -------------------- CSS --------------------
+# ---------------- CSS ----------------
+
 st.markdown("""
 <style>
 
-/* Background image */
+/* Background */
+
 [data-testid="stAppViewContainer"]{
-    background-image: url("https://raw.githubusercontent.com/vinishaapr33/HCT-demo/main/olivia.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-image:url("https://raw.githubusercontent.com/vinishaapr33/HCT-demo/main/olivia.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 }
 
-/* Main content glass box */
+/* Remove Streamlit default backgrounds */
+
+[data-testid="stHeader"],
+[data-testid="stToolbar"]{
+    background:transparent;
+}
+
+/* Main Glass Card */
+
 .main .block-container{
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
 
-    border: 2px solid rgba(255,255,255,0.45);
-    border-radius: 25px;
+    max-width:850px;
 
-    padding: 45px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin:auto;
+    margin-top:70px;
 
-    box-shadow: 0px 0px 30px rgba(255,255,255,0.45);
+    padding:50px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border:1.5px solid rgba(255,255,255,.35);
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.18),
+        0 8px 40px rgba(0,0,0,.30);
+
 }
 
-/* Title */
-h1{
+/* Make every Streamlit container transparent */
+
+div[data-testid="stVerticalBlock"],
+div[data-testid="stHorizontalBlock"],
+div[data-testid="element-container"],
+div[data-testid="stMarkdownContainer"],
+section{
+    background:transparent !important;
+}
+
+/* Headings */
+
+h1,h2,h3,h4,h5,h6{
+
     color:white !important;
+
     text-align:center;
-    text-shadow:0 0 10px white;
+
+    text-shadow:
+        0 0 8px white,
+        0 0 18px white;
 }
 
-/* All text */
-label,
-p,
-span,
-div{
+/* Text */
+
+label,p,span,div{
+
     color:white !important;
-    text-shadow:0 0 8px rgba(255,255,255,0.9);
+
+    text-shadow:0 0 6px rgba(255,255,255,.9);
 }
 
-/* Text input */
+/* Input Box */
+
 .stTextInput input{
-    background:rgba(255,255,255,0.15)!important;
+
+    background:rgba(255,255,255,.10)!important;
+
     color:white!important;
 
-    border:1px solid rgba(255,255,255,0.6)!important;
-    border-radius:12px!important;
+    border:1px solid rgba(255,255,255,.45)!important;
+
+    border-radius:15px!important;
+
+    backdrop-filter:blur(10px);
+
+    padding:12px;
 }
 
 /* Placeholder */
+
 .stTextInput input::placeholder{
-    color:rgba(255,255,255,0.7)!important;
+
+    color:rgba(255,255,255,.70)!important;
 }
 
 /* Button */
+
 .stButton>button{
+
     width:100%;
-    background:rgba(255,255,255,0.18);
+
+    background:rgba(255,255,255,.10);
+
     color:white;
-    border:1px solid rgba(255,255,255,0.7);
-    border-radius:12px;
-    font-weight:bold;
-    box-shadow:0 0 15px rgba(255,255,255,0.6);
+
+    border:1px solid rgba(255,255,255,.45);
+
+    border-radius:15px;
+
+    backdrop-filter:blur(10px);
+
+    transition:.3s;
+
+    box-shadow:0 0 18px rgba(255,255,255,.15);
 }
 
 .stButton>button:hover{
-    background:rgba(255,255,255,0.3);
-    color:white;
+
+    background:rgba(255,255,255,.18);
+
+    box-shadow:0 0 28px rgba(255,255,255,.35);
+
+    transform:scale(1.02);
 }
 
-/* Success / warning text */
-.stAlert{
-    background:rgba(255,255,255,0.12)!important;
+/* Alerts */
+
+div[data-testid="stAlert"]{
+
+    background:rgba(255,255,255,.08)!important;
+
+    border:1px solid rgba(255,255,255,.25)!important;
+
+    backdrop-filter:blur(10px);
+
     color:white!important;
+}
+
+/* Results */
+
+div[data-testid="stText"]{
+    background:transparent!important;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# -------------------- App --------------------
+# ---------------- App ----------------
 
 st.title("✨ Sentiment Analyzer")
 
-user_text = st.text_input("Enter text")
+st.write("Enter a sentence below to analyze its sentiment.")
+
+user_text = st.text_input("Enter Text")
 
 if st.button("Analyze"):
 
@@ -107,8 +187,11 @@ if st.button("Analyze"):
 
         result = sentiment_pipeline(user_text)[0]
 
-        st.write(f"### **Label:** {result['label']}")
-        st.write(f"### **Confidence:** {result['score']:.2%}")
+        st.subheader("Result")
+
+        st.write(f"**Label:** {result['label']}")
+
+        st.write(f"**Confidence:** {result['score']:.2%}")
 
     else:
 
