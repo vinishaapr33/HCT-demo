@@ -9,3 +9,6 @@ if st.button("Analyze"):
     result = sentiment(user_text)[0]
     st.write("Label:", result['label'])
     st.write("Confidence:", result['score'])
+    uploaded = st.file_uploader("olivia.jpg")
+if uploaded:
+    st.image(uploaded)
