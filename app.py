@@ -12,9 +12,9 @@ page_bg_img = """
     background-size: cover;
 }
 
-/* Big transparent overlay covering app content */
+/* Big transparent overlay wrapping all content */
 .big-box {
-    background-color: rgba(255, 255, 255, 0.15);  /* 👈 adjust opacity here */
+    background-color: rgba(255, 255, 255, 0.15);  /* 👈 adjust opacity */
     padding: 50px;
     border-radius: 20px;
     margin: 60px auto;
