@@ -26,11 +26,11 @@ st.markdown("""
 
 /* Main content glass box */
 .main .block-container{
-    background: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.12);   /* 👈 adjust opacity */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
-    border: 2px solid rgba(255,255,255,0.45);
+    border: 2px solid rgba(255,255,255,0.45); /* subtle glowing border */
     border-radius: 25px;
 
     padding: 45px;
@@ -38,6 +38,7 @@ st.markdown("""
     margin-bottom: 40px;
 
     box-shadow: 0px 0px 30px rgba(255,255,255,0.45);
+    text-align: center; /* 👈 center all content */
 }
 
 /* Title */
@@ -47,7 +48,7 @@ h1{
     text-shadow:0 0 10px white;
 }
 
-/* All text */
+/* Labels and results */
 label,
 p,
 span,
@@ -58,16 +59,16 @@ div{
 
 /* Text input */
 .stTextInput input{
-    background:rgba(255,255,255,0.15)!important;
-    color:white!important;
-
-    border:1px solid rgba(255,255,255,0.6)!important;
+    background:rgba(255,255,255,0.7)!important;  /* semi-transparent white */
+    color:black!important;                       /* 👈 user text in black */
+    border:1px solid rgba(255,255,255,0.8)!important;
     border-radius:12px!important;
+    padding:10px;
 }
 
 /* Placeholder */
 .stTextInput input::placeholder{
-    color:rgba(255,255,255,0.7)!important;
+    color:rgba(0,0,0,0.6)!important; /* subtle grey placeholder */
 }
 
 /* Button */
@@ -86,7 +87,7 @@ div{
     color:white;
 }
 
-/* Success / warning text */
+/* Alerts */
 .stAlert{
     background:rgba(255,255,255,0.12)!important;
     color:white!important;
@@ -96,20 +97,14 @@ div{
 """, unsafe_allow_html=True)
 
 # -------------------- App --------------------
-
-st.title("✨ Sentiment Analyzer")
+st.title("✨ Sentiment Analyzer ✨")
 
 user_text = st.text_input("Enter text")
 
 if st.button("Analyze"):
-
     if user_text.strip():
-
         result = sentiment_pipeline(user_text)[0]
-
         st.write(f"### **Label:** {result['label']}")
         st.write(f"### **Confidence:** {result['score']:.2%}")
-
     else:
-
         st.warning("Please enter some text.")
