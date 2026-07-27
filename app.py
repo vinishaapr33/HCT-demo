@@ -47,7 +47,7 @@ st.markdown("""
     text-align: center;
 
     /* 👇 Adjust vertical position */
-    margin-top: 50px;   /* move box upward */
+    margin-top: 100px;   /* move box upward */
     /* Try positive value (e.g., 100px) to move downward */
 }
 
