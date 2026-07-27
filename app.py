@@ -23,32 +23,16 @@ st.markdown("""
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-    /* Center everything vertically + horizontally */
     display: flex;
-    align-items: center;
     justify-content: center;
     min-height: 100vh;
 }
 
-/* Main content glass box */
+/* Main content box */
 .main .block-container{
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border: 2px solid rgba(255,255,255,0.45);
-    border-radius: 25px;
-
-    padding: 45px;
-    width: 80%;
-    max-width: 900px;
-
-    box-shadow: 0px 0px 30px rgba(255,255,255,0.45);
     text-align: center;
-
-    /* 👇 Adjust vertical position */
-    margin-top: 100px;   /* move box upward */
-    /* Try positive value (e.g., 100px) to move downward */
+    margin-top: 150px;   /* 👈 move content downward */
+    /* Try negative values (e.g., -100px) if you want it higher */
 }
 
 /* Title */
