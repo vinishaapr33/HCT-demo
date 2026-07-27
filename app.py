@@ -1,7 +1,5 @@
 import streamlit as st
 
-import streamlit as st
-
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -11,41 +9,43 @@ page_bg_img = """
 
 /* Big transparent overlay box */
 .big-box {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);  /* very light transparency */
     padding: 40px;
     border-radius: 15px;
-    margin: 50px auto;
-    width: 80%;
+    margin: 80px auto;
+    width: 90%;
     box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+    display: flex;               /* 👈 arrange children in a row */
+    justify-content: space-around; /* 👈 evenly space icons */
+    align-items: center;
 }
 
-/* Smaller floating boxes */
-.text-box {
+/* Icon boxes */
+.icon-box {
     background-color: rgba(255, 255, 255, 0.7);
     padding: 20px;
     border-radius: 10px;
-    margin: 20px 0;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;   /* 👈 smooth animation */
+    text-align: center;
+    font-size: 40px;   /* big icons */
+    transition: all 0.3s ease;
 }
-
-/* Hover effect */
-.text-box:hover {
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.4);   /* stronger shadow */
-    transform: scale(1.02);                     /* slight zoom */
-    background-color: rgba(255, 255, 255, 0.85); /* glow by reducing transparency */
+.icon-box:hover {
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.4);
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Big box wrapping everything
+# Big box with icons in a row
 st.markdown("""
 <div class="big-box">
-    <div class="text-box">✨ Olivia in my first app ✨</div>
-    <div class="text-box">Readable text with floating transparent boxes</div>
-    <div class="text-box">Symmetric layout with overlay + shadows</div>
-    <div class="text-box">Now with hover glow ✨</div>
+    <div class="icon-box">🎵</div>
+    <div class="icon-box">💻</div>
+    <div class="icon-box">🌸</div>
+    <div class="icon-box">✨</div>
 </div>
 """, unsafe_allow_html=True)
 
