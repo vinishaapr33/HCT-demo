@@ -31,7 +31,7 @@ st.markdown("""
 /* Main content box */
 .main .block-container{
     text-align: center;
-    margin-top: 150px;   /* 👈 move content downward */
+    margin-top: 250px;   /* 👈 move content downward */
     /* Try negative values (e.g., -100px) if you want it higher */
 }
 
