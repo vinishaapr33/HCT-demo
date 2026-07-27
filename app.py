@@ -1,42 +1,55 @@
 import streamlit as st
-from transformers import pipeline
-
-# Load Hugging Face sentiment analysis model
-sentiment_pipeline = pipeline("sentiment-analysis")
-
-# Background + styling
-page_bg_img = """
+import transformers import pipeline
 <style>
 [data-testid="stAppViewContainer"] {
     background-image: url("https://raw.githubusercontent.com/vinishaapr33/HCT-demo/main/olivia.jpg");
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* Big transparent overlay wrapping all content */
-.big-box {
-    background-color: rgba(255, 255, 255, 0.12);  /* 👈 adjust opacity here */
-    padding: 50px;
+/* Main content container */
+[data-testid="stMainBlockContainer"] {
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.6);
     border-radius: 20px;
-    margin: 60px auto;
-    width: 85%;
-    border: 2px solid rgba(255,255,255,0.6);       /* subtle white border */
-    box-shadow: 0px 0px 20px rgba(255,255,255,0.7); /* soft glow */
-    color: white;                                  /* 👈 text is white */
-    text-shadow: 0px 0px 8px rgba(255,255,255,0.9); /* 👈 glowing text */
+    padding: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.7);
+}
+
+/* All text */
+h1, h2, h3, h4, h5, h6, p, label, div, span {
+    color: white !important;
+    text-shadow: 0 0 8px rgba(255,255,255,0.9);
+}
+
+/* Text input */
+.stTextInput input {
+    background: rgba(255,255,255,0.12) !important;
+    color: white !important;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+/* Placeholder */
+.stTextInput input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+/* Button */
+.stButton > button {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid white;
+    box-shadow: 0 0 10px white;
 }
 </style>
-"""
-st.markdown(page_bg_img, unsafe_allow_html=True)
-
-# Wrap ALL app content inside the big transparent box
-st.markdown('<div class="big-box">', unsafe_allow_html=True)
-
-# Actual app code inside the glowing box
 st.title("Sentiment Analyzer")
+
 user_text = st.text_input("Enter text:")
+
 if st.button("Analyze"):
     result = sentiment_pipeline(user_text)[0]
-    st.write("Label:", result['label'])
+    st.write("Label:", result["label"])
     st.write("Confidence:", f"{result['score']:.2f}")
-
-st.markdown('</div>', unsafe_allow_html=True)
