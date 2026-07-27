@@ -22,6 +22,12 @@ st.markdown("""
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+
+    /* Center everything vertically + horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;   /* 👈 ensures full screen height */
 }
 
 /* Main content glass box */
@@ -34,25 +40,22 @@ st.markdown("""
     border-radius: 25px;
 
     padding: 45px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    width: 80%;            /* 👈 makes it wide */
+    max-width: 900px;      /* 👈 optional limit */
+    margin: auto;
 
     box-shadow: 0px 0px 30px rgba(255,255,255,0.45);
-    text-align: center; /* 👈 center all content */
+    text-align: center;    /* 👈 centers text inside */
 }
 
 /* Title */
 h1{
     color:white !important;
-    text-align:center;
     text-shadow:0 0 10px white;
 }
 
 /* Labels and results */
-label,
-p,
-span,
-div{
+label, p, span, div{
     color:white !important;
     text-shadow:0 0 8px rgba(255,255,255,0.9);
 }
@@ -60,7 +63,7 @@ div{
 /* Text input */
 .stTextInput input{
     background:rgba(255,255,255,0.7)!important;  /* semi-transparent white */
-    color:black!important;                       /* 👈 user text in black */
+    color:black!important;                       /* 👈 user input stays black */
     border:1px solid rgba(255,255,255,0.8)!important;
     border-radius:12px!important;
     padding:10px;
@@ -68,7 +71,7 @@ div{
 
 /* Placeholder */
 .stTextInput input::placeholder{
-    color:rgba(0,0,0,0.6)!important; /* subtle grey placeholder */
+    color:rgba(0,0,0,0.6)!important;
 }
 
 /* Button */
