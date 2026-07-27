@@ -1,7 +1,7 @@
 import streamlit as st
 from transformers import pipeline
 
-# ---------------- Page Config ----------------
+# ---------------- PAGE CONFIG ---------------- #
 
 st.set_page_config(
     page_title="Sentiment Analyzer",
@@ -9,7 +9,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------- Load Model ----------------
+# ---------------- LOAD MODEL ---------------- #
 
 @st.cache_resource
 def load_model():
@@ -17,12 +17,12 @@ def load_model():
 
 sentiment_pipeline = load_model()
 
-# ---------------- CSS ----------------
+# ---------------- CSS ---------------- #
 
 st.markdown("""
 <style>
 
-/* Background */
+/* ---------------- BACKGROUND ---------------- */
 
 [data-testid="stAppViewContainer"]{
     background-image:url("https://raw.githubusercontent.com/vinishaapr33/HCT-demo/main/olivia.jpg");
@@ -32,167 +32,202 @@ st.markdown("""
     background-attachment:fixed;
 }
 
-/* Remove Streamlit default backgrounds */
+/* Remove Streamlit header */
 
-[data-testid="stHeader"],
+[data-testid="stHeader"]{
+    background:transparent;
+}
+
 [data-testid="stToolbar"]{
     background:transparent;
 }
 
-/* Main Glass Card */
+/* ---------------- MAIN GLASS PANEL ---------------- */
 
-.main .block-container{
+.block-container{
 
-    max-width:850px;
+    max-width:820px !important;
 
-    margin:auto;
-    margin-top:70px;
+    margin:auto !important;
 
-    padding:50px;
+    margin-top:60px !important;
 
-    border-radius:30px;
+    padding:45px !important;
 
-    background:rgba(255,255,255,.08);
+    background:rgba(255,255,255,0.09);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
-    border:1.5px solid rgba(255,255,255,.35);
+    border:1px solid rgba(255,255,255,0.28);
+
+    border-radius:24px;
 
     box-shadow:
-        0 0 20px rgba(255,255,255,.18),
-        0 8px 40px rgba(0,0,0,.30);
+        0 8px 30px rgba(0,0,0,0.28),
+        0 0 15px rgba(255,255,255,0.08);
 
 }
 
-/* Make every Streamlit container transparent */
+/* ---------------- REMOVE WHITE BACKGROUNDS ---------------- */
 
+div[data-testid="element-container"],
 div[data-testid="stVerticalBlock"],
 div[data-testid="stHorizontalBlock"],
-div[data-testid="element-container"],
 div[data-testid="stMarkdownContainer"],
 section{
     background:transparent !important;
 }
 
-/* Headings */
+/* ---------------- TEXT ---------------- */
 
-h1,h2,h3,h4,h5,h6{
+h1{
 
     color:white !important;
 
     text-align:center;
 
-    text-shadow:
-        0 0 8px white,
-        0 0 18px white;
+    font-size:44px;
+
+    text-shadow:0 0 4px rgba(255,255,255,0.30);
+
 }
 
-/* Text */
-
-label,p,span,div{
+h2,h3,h4,h5,h6,
+label,
+p,
+span,
+div{
 
     color:white !important;
 
-    text-shadow:0 0 6px rgba(255,255,255,.9);
+    text-shadow:0 0 1px rgba(255,255,255,0.15);
+
 }
 
-/* Input Box */
+/* ---------------- INPUT BOX ---------------- */
 
 .stTextInput input{
 
-    background:rgba(255,255,255,.10)!important;
+    background:rgba(255,255,255,0.14)!important;
 
-    color:white!important;
+    color:black!important;
 
-    border:1px solid rgba(255,255,255,.45)!important;
+    border:1px solid rgba(255,255,255,0.30)!important;
 
-    border-radius:15px!important;
+    border-radius:14px!important;
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
 
     padding:12px;
+
 }
 
 /* Placeholder */
 
 .stTextInput input::placeholder{
 
-    color:rgba(255,255,255,.70)!important;
+    color:rgba(255,255,255,0.75)!important;
+
 }
 
-/* Button */
+/* ---------------- BUTTON ---------------- */
 
-.stButton>button{
+.stButton > button{
 
     width:100%;
 
-    background:rgba(255,255,255,.10);
+    background:rgba(255,255,255,0.12);
 
     color:white;
 
-    border:1px solid rgba(255,255,255,.45);
+    border:1px solid rgba(255,255,255,0.28);
 
-    border-radius:15px;
+    border-radius:14px;
 
     backdrop-filter:blur(10px);
 
-    transition:.3s;
+    transition:0.3s;
 
-    box-shadow:0 0 18px rgba(255,255,255,.15);
 }
 
-.stButton>button:hover{
+.stButton > button:hover{
 
-    background:rgba(255,255,255,.18);
+    background:rgba(255,255,255,0.20);
 
-    box-shadow:0 0 28px rgba(255,255,255,.35);
+    box-shadow:0 0 15px rgba(255,255,255,0.20);
 
-    transform:scale(1.02);
 }
 
-/* Alerts */
+/* ---------------- RESULT BOX ---------------- */
 
 div[data-testid="stAlert"]{
 
-    background:rgba(255,255,255,.08)!important;
+    background:rgba(255,255,255,0.10)!important;
 
-    border:1px solid rgba(255,255,255,.25)!important;
+    border:1px solid rgba(255,255,255,0.20)!important;
+
+    color:white!important;
 
     backdrop-filter:blur(10px);
 
-    color:white!important;
 }
 
-/* Results */
+/* Success messages */
 
-div[data-testid="stText"]{
-    background:transparent!important;
+div[data-testid="stSuccess"]{
+
+    background:rgba(255,255,255,0.08)!important;
+
+}
+
+/* Warning */
+
+div[data-testid="stWarning"]{
+
+    background:rgba(255,255,255,0.08)!important;
+
 }
 
 </style>
 """, unsafe_allow_html=True)
+# ---------------- APP ---------------- #
 
-# ---------------- App ----------------
+st.markdown("<br>", unsafe_allow_html=True)
 
 st.title("✨ Sentiment Analyzer")
 
-st.write("Enter a sentence below to analyze its sentiment.")
+st.markdown(
+    "<p style='text-align:center; font-size:18px;'>"
+    "Analyze the sentiment of any sentence using AI."
+    "</p>",
+    unsafe_allow_html=True,
+)
 
-user_text = st.text_input("Enter Text")
+st.write("")
 
-if st.button("Analyze"):
+user_text = st.text_input(
+    "Enter your text",
+    placeholder="Type something here..."
+)
+
+st.write("")
+
+if st.button("🔍 Analyze"):
 
     if user_text.strip():
 
-        result = sentiment_pipeline(user_text)[0]
+        with st.spinner("Analyzing..."):
 
-        st.subheader("Result")
+            result = sentiment_pipeline(user_text)[0]
 
-        st.write(f"**Label:** {result['label']}")
+        st.success("Analysis Complete")
 
-        st.write(f"**Confidence:** {result['score']:.2%}")
+      if result["label"] == "POSITIVE":
+    st.success(f"😊 Positive ({result['score']:.2%})")
+else:
+    st.error(f"😞 Negative ({result['score']:.2%})")
 
     else:
 
-        st.warning("Please enter some text.")
+        st.warning("Please enter some text before clicking Analyze.")
