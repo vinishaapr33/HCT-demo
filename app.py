@@ -29,15 +29,16 @@ page_bg_img = """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Wrap ALL app content inside the big transparent box
-st.markdown('<div class="big-box">', unsafe_allow_html=True)
+with st.container():
+    st.markdown('<div class="big-box">', unsafe_allow_html=True)
 
-# Actual app code
-st.title("Sentiment Analyzer")
-user_text = st.text_input("Enter text:")
-if st.button("Analyze"):
-    sentiment = pipeline("sentiment-analysis")
-    result = sentiment(user_text)[0]
-    st.write("Label:", result['label'])
-    st.write("Confidence:", result['score'])
+    # Actual app code inside the box
+    st.title("Sentiment Analyzer")
+    user_text = st.text_input("Enter text:")
+    if st.button("Analyze"):
+        sentiment = pipeline("sentiment-analysis")
+        result = sentiment(user_text)[0]
+        st.write("Label:", result['label'])
+        st.write("Confidence:", result['score'])
 
-st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
