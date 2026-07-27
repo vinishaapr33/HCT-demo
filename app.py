@@ -1,6 +1,8 @@
-
 import streamlit as st
 from transformers import pipeline
+
+# Load Hugging Face sentiment analysis model
+sentiment_pipeline = pipeline("sentiment-analysis")
 
 # Background + styling
 page_bg_img = """
@@ -10,41 +12,31 @@ page_bg_img = """
     background-size: cover;
 }
 
-/* Big transparent overlay */
+/* Big transparent overlay covering all app content */
 .big-box {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.2);  /* 👈 adjust opacity here */
     padding: 50px;
     border-radius: 20px;
-    margin: 100px auto;
-    width: 80%;
-    box-shadow: 0px 4px 25px rgba(0,0,0,0.3);
-    text-align: center;
-}
-
-/* Highlight box */
-.sentiment-box {
-    background-color: rgba(255, 215, 0, 0.8);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0px 6px 30px rgba(255, 215, 0, 0.6);
-    transition: all 0.3s ease;
-}
-.sentiment-box:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 215, 0, 0.95);
+    margin: 60px auto;
+    width: 85%;
+    border: 2px solid rgba(255,255,255,0.6);     /* 👈 subtle white border */
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.7); /* 👈 glowy white aura */
 }
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Your actual app code inside the styled structure
-st.markdown('<div class="big-box"><div class="sentiment-box"></div></div>', unsafe_allow_html=True)
+# Wrap all app content inside the big transparent box
+st.markdown('<div class="big-box">', unsafe_allow_html=True)
 
+# Actual app code
 st.title("Sentiment Analyzer")
-
 user_text = st.text_input("Enter text:")
 if st.button("Analyze"):
     sentiment = pipeline("sentiment-analysis")
     result = sentiment(user_text)[0]
     st.write("Label:", result['label'])
     st.write("Confidence:", result['score'])
+
+st.markdown('</div>', unsafe_allow_html=True)
+
