@@ -1,55 +1,115 @@
 import streamlit as st
-import transformers import pipeline
+from transformers import pipeline
+
+# -------------------- Page Config --------------------
+st.set_page_config(page_title="Sentiment Analyzer", layout="centered")
+
+# -------------------- Load Model --------------------
+@st.cache_resource
+def load_model():
+    return pipeline("sentiment-analysis")
+
+sentiment_pipeline = load_model()
+
+# -------------------- CSS --------------------
+st.markdown("""
 <style>
-[data-testid="stAppViewContainer"] {
+
+/* Background image */
+[data-testid="stAppViewContainer"]{
     background-image: url("https://raw.githubusercontent.com/vinishaapr33/HCT-demo/main/olivia.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-/* Main content container */
-[data-testid="stMainBlockContainer"] {
+/* Main content glass box */
+.main .block-container{
     background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.6);
-    border-radius: 20px;
-    padding: 40px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 2px solid rgba(255,255,255,0.45);
+    border-radius: 25px;
+
+    padding: 45px;
     margin-top: 40px;
     margin-bottom: 40px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.7);
+
+    box-shadow: 0px 0px 30px rgba(255,255,255,0.45);
+}
+
+/* Title */
+h1{
+    color:white !important;
+    text-align:center;
+    text-shadow:0 0 10px white;
 }
 
 /* All text */
-h1, h2, h3, h4, h5, h6, p, label, div, span {
-    color: white !important;
-    text-shadow: 0 0 8px rgba(255,255,255,0.9);
+label,
+p,
+span,
+div{
+    color:white !important;
+    text-shadow:0 0 8px rgba(255,255,255,0.9);
 }
 
 /* Text input */
-.stTextInput input {
-    background: rgba(255,255,255,0.12) !important;
-    color: white !important;
-    border: 1px solid rgba(255,255,255,0.5);
+.stTextInput input{
+    background:rgba(255,255,255,0.15)!important;
+    color:white!important;
+
+    border:1px solid rgba(255,255,255,0.6)!important;
+    border-radius:12px!important;
 }
 
 /* Placeholder */
-.stTextInput input::placeholder {
-    color: rgba(255,255,255,0.7);
+.stTextInput input::placeholder{
+    color:rgba(255,255,255,0.7)!important;
 }
 
 /* Button */
-.stButton > button {
-    background: rgba(255,255,255,0.15);
-    color: white;
-    border: 1px solid white;
-    box-shadow: 0 0 10px white;
+.stButton>button{
+    width:100%;
+    background:rgba(255,255,255,0.18);
+    color:white;
+    border:1px solid rgba(255,255,255,0.7);
+    border-radius:12px;
+    font-weight:bold;
+    box-shadow:0 0 15px rgba(255,255,255,0.6);
 }
-</style>
-st.title("Sentiment Analyzer")
 
-user_text = st.text_input("Enter text:")
+.stButton>button:hover{
+    background:rgba(255,255,255,0.3);
+    color:white;
+}
+
+/* Success / warning text */
+.stAlert{
+    background:rgba(255,255,255,0.12)!important;
+    color:white!important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# -------------------- App --------------------
+
+st.title("✨ Sentiment Analyzer")
+
+user_text = st.text_input("Enter text")
 
 if st.button("Analyze"):
-    result = sentiment_pipeline(user_text)[0]
-    st.write("Label:", result["label"])
-    st.write("Confidence:", f"{result['score']:.2f}")
+
+    if user_text.strip():
+
+        result = sentiment_pipeline(user_text)[0]
+
+        st.write(f"### **Label:** {result['label']}")
+        st.write(f"### **Confidence:** {result['score']:.2%}")
+
+    else:
+
+        st.warning("Please enter some text.")
