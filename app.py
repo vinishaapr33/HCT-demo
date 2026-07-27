@@ -23,7 +23,7 @@ st.markdown("""
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-    /* 👇 Center everything vertically + horizontally */
+    /* Center everything vertically + horizontally */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,4 +111,3 @@ if st.button("Analyze"):
         st.write(f"### **Confidence:** {result['score']:.2%}")
     else:
         st.warning("Please enter some text.")
-
